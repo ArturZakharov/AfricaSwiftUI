@@ -31,21 +31,52 @@ struct AnimalDetailView: View {
                             .frame(height: 6)
                             .offset(y: 24)
                     )
+                
                 //Headline
                 Text(animal.headline)
                     .font(.headline)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.accentColor)
                     .padding(.horizontal)
+                
                 //Gallery
-                HeadingView(headingImage: "photo.on.rectangle.angled", headingText: "Wilderness in Pictures")
-                    .padding(.horizontal)
-                CaruselGalleryView(animal: animal)
+                Group {
+                    HeadingView(headingImage: "photo.on.rectangle.angled", headingText: "Wilderness in Pictures")
+                        .padding(.horizontal)
+                    CarouselGalleryView(animal: animal)
+                }
+                
                 //Facts
+                Group {
+                    HeadingView(headingImage: "questionmark.circle", headingText: "Did you know?")
+                    InsetFactView(animal: animal)
+                }
+                
                 //Description
+                Group {
+                    HeadingView(headingImage: "info.circle", headingText: "All about \(animal.name)")
+                    Text(animal.description)
+                        .multilineTextAlignment(.leading)
+                        .layoutPriority(1)
+                }
+                
                 //Map
+                Group {
+                    HeadingView(headingImage: "map", headingText: "National Parks")
+                    
+                    InsetMapView()
+                }
+                
                 //Link
+                Group {
+                    HeadingView(headingImage: "books.vertical", headingText: "Learn More")
+                    
+                    ExternalWeblinkView(animal: animal)
+                }
+                
             } //: Vstack
+//            .navigationTitle("Learn about \(animal.name)")
+            .navigationBarTitle("Learn about \(animal.name)", displayMode: .inline)
         } //: Scroll
         
     }
@@ -56,6 +87,9 @@ struct AnimalDetailView_Previews: PreviewProvider {
     static let animals: [Animal] = Bundle.main.decode("animals.json")
     
     static var previews: some View {
-        AnimalDetailView(animal: animals[0])
+        NavigationView {
+            AnimalDetailView(animal: animals[0])
+        }
+        .previewDevice("iPhone 12 Pro")
     }
 }
