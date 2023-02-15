@@ -45,6 +45,7 @@ struct AnimalDetailView: View {
                         .padding(.horizontal)
                     CarouselGalleryView(animal: animal)
                 }
+                .padding(.horizontal)
                 
                 //Facts
                 Group {
